@@ -22,6 +22,7 @@ OBJECTS =	$(DIR_UTIL_ROUTINES)/matrix_ops/matrix_ops.o \
 			$(DIR_SRC_LIBS)/bin_sectors.o	\
 			$(DIR_SRC_LIBS)/QSmatrix.o	\
 			$(DIR_SRC_LIBS)/first_iter.o \
+			$(DIR_SRC_LIBS)/prim.o \
 			$(DIR_SRC_LIBS)/io_bin.o
 
 

@@ -21,7 +21,9 @@
 #include "qs_hilbert.h"
 #include "QSmatrix.h"
 #include "first_iter.h"
+#include "prim.h"
 
+/* printing binary configurations info */
 #include "io_bin.h"
 
 int main(int argc, char *argv[]){
@@ -53,6 +55,19 @@ int main(int argc, char *argv[]){
 	print_all_sectors();
 	
 	update_from_single_site_to_dimer();
-		
+	
+	std::cout << "\ntesting primitive basis for 2 sites" << std::endl;
+	
+	primitive_basis(QS_matrix());
+	
+	
+	std::cout << "current maximum value of charge" << qmax_curr() << std::endl;
+	
+	print_all_sectors();	
+	
+	int n = iter();
+	
+	
+	
 	return 0;
 }
