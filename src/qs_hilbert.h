@@ -42,5 +42,8 @@ void update_q_dS();
 
 int indhamex(int lin, int col);
 
+int iter_max();
+void set_itermax(int itermaxarg);
+
 #define __QS_HILBERT__
 #endif

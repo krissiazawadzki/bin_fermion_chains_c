@@ -370,3 +370,26 @@ int indhamex(int lin, int col)
   return i;
 }
 
+
+int iter_max_ = 0;
+
+int iter_max()
+/*	int inter_max()
+ * 
+ * 	Function returns the maximum number of iterations according to 
+ *  parameters of the model Hamiltonian.
+ * 
+ * 	Inputs:
+ * 		none
+ * 	Outputs:
+ * 		int iter_max - maximum number of iterations
+ * 
+ * */
+{
+	return iter_max_;
+}
+
+
+void set_itermax(int itermaxarg){
+	iter_max_ = itermaxarg;
+}
