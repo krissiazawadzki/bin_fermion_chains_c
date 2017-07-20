@@ -358,8 +358,6 @@ void print_sector(bin_sector sec, int ds, int curr, int print_translation_mat)
 		for(int b = 0; b < sec.np_binconfs[p]; b++){
 			int q_bin;
 			int nsites = iter();
-			if(curr == 1)
-				nsites = iter()+1;
 			int *fns_bin = new int[2*nsites];
 			int index_bin = sec.bin_confs[accbin];
 			int *binstate = index_to_binary(index_bin, nsites, fns_bin, q_bin, 0);

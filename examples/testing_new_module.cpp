@@ -58,16 +58,43 @@ int main(int argc, char *argv[]){
 	
 	std::cout << "\ntesting primitive basis for 2 sites" << std::endl;
 	
-	primitive_basis(QS_matrix());
+	//primitive_basis(QS_matrix());
 	
 	
-	std::cout << "current maximum value of charge" << qmax_curr() << std::endl;
+	//std::cout << "current maximum value of charge" << qmax_curr() << std::endl;
 	
-	print_all_sectors();	
+	//print_all_sectors();	
 	
 	int n = iter();
 	
+	while(n <= iter_max() ){
+		cout << " \t ^     ^\t " << endl;
+		cout << " \t    o \t " << endl;
+		cout << " \t   > < \t " << endl;
+		cout << " \t  \t " << endl;
+		cout << "Begin iteration " << n << endl;
+		
+		set_iter(n);
+		primitive_basis(QS_matrix());
+		
+		
+		cout << " * * * * * " << endl;
+		
+		//print_all_sectors_friendly();
+		
+		print_all_sectors();
+		
+		update_QSmatrix();
+		update_q_dS();	
+		
+		n++;
+		}
+		
+	update_QSmatrix();
 	
+	clear_QSmatrix(QS_matrix());	
+	
+	std::cout << "END OF CALCULATION" << std::endl;
 	
 	return 0;
 }
