@@ -1,7 +1,7 @@
 CCOMPILER = gcc
 CXXCOMPILER = g++
 
-DIR_UTIL_ROUTINES = 
+DIR_UTIL_ROUTINES = ../../dft-nrg/src/util_etc/
 DIR_SRC_LIBS = ../src
 
 INC_BLAS = "/usr/local/opt/openblas/include/"
@@ -16,9 +16,10 @@ CXXFLAGS += -Wall -O2   -I$(INC_BLAS) -I$(DIR_UTIL_ROUTINES) -I$(DIR_SRC_LIBS) -
 MAINSOURCE = testing_new_module
 
 
-OBJECTS =	$(DIR_SRC_LIBS)/bin_sectors.o	\
+OBJECTS =	$(DIR_UTIL_ROUTINES)/matrix_ops/matrix_ops.o \
 			$(DIR_SRC_LIBS)/spin_configurations.o \
-			$(MAINSOURCE).O
+			$(DIR_SRC_LIBS)/qs_hilbert.o	\
+			$(DIR_SRC_LIBS)/bin_sectors.o	
 
 
 DEPDIR = .deps
