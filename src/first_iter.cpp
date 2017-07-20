@@ -23,6 +23,7 @@ void generate_single_site_hilbert_space()
  * */	
 {
 
+  set_iter(1);
  
   // creating sector Q = 1, S = 0, np = 1 
   QS_matrix()[q_index(1)][0].Q = 1;
@@ -68,7 +69,13 @@ void generate_single_site_hilbert_space()
   
   set_qmax_prev(1); // sets the max charge of iteration N = 1, single site states
   set_qmax_curr(qmax_prev()+1);
-  set_iter(1);
+
+}
+
+
+void update_from_single_site_to_dimer(){
+	
+  set_iter(2);
   
   set_dsmax_prev(1,0);
   set_dsmax_prev(0,1);
@@ -80,6 +87,6 @@ void generate_single_site_hilbert_space()
   set_dsmax_curr(-1,1);
   set_dsmax_curr(-2,0);
  
-
-
+	
+	
 }
