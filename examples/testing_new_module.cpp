@@ -33,5 +33,7 @@ int main(int argc, char *argv[]){
 	std::cout << "target (Q,S) : (" << Q << ", " << dS << ")" << std::endl;
 	
 	
+
+		
 	return 0;
 }

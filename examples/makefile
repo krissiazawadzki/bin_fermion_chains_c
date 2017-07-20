@@ -19,7 +19,8 @@ MAINSOURCE = testing_new_module
 OBJECTS =	$(DIR_UTIL_ROUTINES)/matrix_ops/matrix_ops.o \
 			$(DIR_SRC_LIBS)/spin_configurations.o \
 			$(DIR_SRC_LIBS)/qs_hilbert.o	\
-			$(DIR_SRC_LIBS)/bin_sectors.o	
+			$(DIR_SRC_LIBS)/bin_sectors.o	\
+			$(DIR_SRC_LIBS)/QSmatrix.o	\
 
 
 DEPDIR = .deps
