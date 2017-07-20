@@ -1,5 +1,7 @@
 #include "spin_configurations.h"
-#include "matrix_ops.h"
+
+/* auxiliary packages */
+#include "matrix_ops/matrix_ops.h"
 
 
 #include <cstdlib>

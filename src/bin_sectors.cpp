@@ -1,5 +1,6 @@
 #include "bin_sectors.h"
 #include "spin_configurations.h"
+#include "qs_hilbert.h"
 
 #include <iostream>
 #include <numeric>
@@ -231,7 +232,7 @@ int npW(bin_sector sec)
 
 
 
-bin_sector *parent(bin_sector sect, int p)
+//bin_sector *parent(bin_sector sect, int p)
 /*	bin_sector *parent(sector sect, int p)
  * 
  * 	Function returns a pointer to the parent of sect whose state is indexed 
@@ -244,6 +245,9 @@ bin_sector *parent(bin_sector sect, int p)
  * 		sector *parent - pointer to parent sector 
  * 
  * */
+
+// TO BE ADDED IN QSMATRIX
+/*
 {
   int q = sect.Q;
   int ds = sect.dS;
@@ -271,6 +275,9 @@ bin_sector *parent(bin_sector sect, int p)
     }
     return &QS_matrix()[q_index(qParent)][dsParent];
 }
+*/
+
+
 
 int gender(bin_sector sect, int p)
 /*	int gender(sector sect, int p)
@@ -302,104 +309,6 @@ int gender(bin_sector sect, int p)
 }
 
 
-int index_invar(bin_sector sec_bra, int ket_index, int bra_index)
-/*	int index_invar(sector sec_bra, int ket_index, int bra_index)
- *
- * 	Function converts matrix element indexes of bra and ket in a
- * 	linear index of invariants NW or NE.
- *
- * 	Inputs:
- * 		sector sec_bra - bra sector
- * 		int ket_index - index of ket in invariant matrix element
- * 		int bra_index - index of bra in invariant matrix element
- *	Output:
- * 		int index_invar - linear index in invariant
- *
- * We are assuming that the invariants (ne or nw) are stored in the form
- * ne(nw) = [< (Q,S)_0 | (Q',S')_0 >, < (Q,S)_1 | (Q',S')_0 >, < (Q,S)_2 | (Q',S')_0 >,
- * ..., < (Q,S)_nr | (Q',S')_0 >, < (Q,S)_0 | (Q',S')_1 >, < (Q,S)_1 | (Q',S')_1 >,
- * ..., < (Q,S)_nr | (Q',S')_1 >, ..., < (Q,S)_nr | (Q',S')_nr > ]
- *
- * */
-{
-  return sec_bra.nr * ket_index + bra_index;
-}
-
-int bra_index(bin_sector sec_bra, int index)
-/*	int bra_index(sector sec_bra, int index)
- *
- * 	Function returns the identifier of bra corresponding to the linear
- * 	index in invariants NW or NE.
- *
- * 	Inputs:
- * 		sector sec_bra - sector structure which is a bra in matrix element
- * 		int index - linear index in invariant
- * 	Outputs:
- * 		int bra_index - identifier of bra
- *
- * We are assuming that the invariants (ne or nw) are stored in the form
- * ne(nw) = [< (Q,S)_0 | (Q',S')_0 >, < (Q,S)_1 | (Q',S')_0 >, < (Q,S)_2 | (Q',S')_0 >,
- * ..., < (Q,S)_nr | (Q',S')_0 >, < (Q,S)_0 | (Q',S')_1 >, < (Q,S)_1 | (Q',S')_1 >,
- * ..., < (Q,S)_nr | (Q',S')_1 >, ..., < (Q,S)_nr | (Q',S')_nr > ]
- *
- * If we want to know which bra is associated with ne(nw)[index], we calculate
- *
- * index % ((Q,S)_nr)
- *
- * Ex: index = 2
- *     (Q,S)_nr = 5
- *     (Q',S')_nr = 2
- *
- * We have: invar = [< (Q,S)_0 | (Q',S')_0 >, < (Q,S)_1 | (Q',S')_0 >,
- * < (Q,S)_2 | (Q',S')_0 >, < (Q,S)_3 | (Q',S')_0 >, < (Q,S)_4 | (Q',S')_0 >,
- * < (Q,S)_0 | (Q',S')_1 >, < (Q,S)_1 | (Q',S')_1 >, < (Q,S)_2 | (Q',S')_1 >,
- * < (Q,S)_3 | (Q',S')_1 >, < (Q,S)_4 | (Q',S')_1 >]
- * invar[2] = < (Q,S)_2 | (Q',S')_0 > = 2%5
- *
- * bra_index returns 2
- *
- * */
-{
-  return index%(sec_bra.nr);
-}
-
-int ket_index(bin_sector sec_bra, int index)
-/*	int ket_index(sector sec_bra, int index)
- *
- * 	Function returns the identifier of ket corresponding to the linear
- * 	index in invariants NW or NE.
- *
- * 	Inputs:
- * 		sector sec_bra - sector structure which is a ket in matrix element
- * 		int index - linear index in invariant
- * 	Outputs:
- * 		int bra_index - identifier of bra
- * We are assuming that the invariants (ne or nw) are stored in the form
- * ne(nw) = [< (Q,S)_0 | (Q',S')_0 >, < (Q,S)_1 | (Q',S')_0 >, < (Q,S)_2 | (Q',S')_0 >,
- * ..., < (Q,S)_nr | (Q',S')_0 >, < (Q,S)_0 | (Q',S')_1 >, < (Q,S)_1 | (Q',S')_1 >,
- * ..., < (Q,S)_nr | (Q',S')_1 >, ..., < (Q,S)_nr | (Q',S')_nr > ]
- *
- * If we want to know which ket is associated with ne(nw)[index], we calculate
- *
- * index /((Q,S)_nr)
- *
- * Ex: index = 6
- *     (Q,S)_nr = 5
- *     (Q',S')_nr = 2
- *
- * We have: invar = [< (Q,S)_0 | (Q',S')_0 >, < (Q,S)_1 | (Q',S')_0 >,
- * < (Q,S)_2 | (Q',S')_0 >, < (Q,S)_3 | (Q',S')_0 >, < (Q,S)_4 | (Q',S')_0 >,
- * < (Q,S)_0 | (Q',S')_1 >, < (Q,S)_1 | (Q',S')_1 >, < (Q,S)_2 | (Q',S')_1 >,
- * < (Q,S)_3 | (Q',S')_1 >, < (Q,S)_4 | (Q',S')_1 >]
- * invar[6] = < (Q,S)_1 | (Q',S')_1 > = 6/2
- *
- * ket_index returns 1
- *
- * */
-{
-  return index/(sec_bra.nr);
-}
-
 
 
 
@@ -420,7 +329,7 @@ void print_sector(bin_sector sec, int ds, int curr, int print_translation_mat)
 	if(ds > DSMAX)
 		dSz = - dSz;
 	cout << "Q = " << sec.Q << ", dS = " << sec.dS << ", dSz = " << dSz << endl;
-	cout << "np = " << sec.np << ", nr = " << sec.nr << ", nb = " << sec.nb << endl;
+	cout << "np = " << sec.np << ", nb = " << sec.nb << ", nub = " << sec.nub << endl;
 
 	
 	if((sec.npv).size() == 4)

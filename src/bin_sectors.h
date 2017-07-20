@@ -48,15 +48,10 @@ vector<int> initial_index_in_bin_confs(bin_sector sec);
 
 // obtaining relations between bin_sectors
 
-bin_sector *parent(bin_sector sect, int p);
+//bin_sector *parent(bin_sector sect, int p);
 
 int gender(bin_sector sect, int p);
 
-int index_invar(bin_sector sec_bra, int ket_index, int bra_index);
-
-int bra_index(bin_sector sec, int index);
-
-int ket_index(bin_sector sec, int index);
 
 // printing a bin_sector
 void print_sector(bin_sector sec, int ds, int curr=0, int print_translation_mat = 0);
