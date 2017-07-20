@@ -22,6 +22,8 @@
 #include "QSmatrix.h"
 #include "first_iter.h"
 
+#include "io_bin.h"
+
 int main(int argc, char *argv[]){
 	
 	int nsites = 2;
@@ -40,12 +42,17 @@ int main(int argc, char *argv[]){
 	
 	int Nmax = nsites;
 	set_itermax(Nmax);
-	cout << "MAX NUM OF ITERATIONS "  << iter_max() << endl;	
+	std::cout << "MAX NUM OF ITERATIONS "  << iter_max() << std::endl;	
 
 
 	// initializing 
 	init_QSmatrix();
 	generate_single_site_hilbert_space();
+	
+	std::cout << "current iter " << iter() << std::endl;
+	print_all_sectors();
+	
+	update_from_single_site_to_dimer();
 		
 	return 0;
 }
