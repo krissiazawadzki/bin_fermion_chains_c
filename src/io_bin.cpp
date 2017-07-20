@@ -5,6 +5,8 @@
 #include <cmath>
 
 #include "io_bin.h"
+#include "spin_configurations.h"
+#include "qs_hilbert.h"
 
 using namespace std;
 
@@ -20,10 +22,10 @@ void print_all_sectors()
  *
  * */
 { 
-	if(iter() == -1){
+	if(iter() == 1){
 		for(unsigned int qind = 0; qind < QS_matrix().size() ; qind++){
 			for(unsigned int ds = 0; ds < QS_matrix()[0].size(); ds++){
-				if(QS_matrix()[qind][ds].nr == 0){
+				if(QS_matrix()[qind][ds].nub == 0){
 					continue;
 				}
 					bin_sector sect = QS_matrix()[qind][ds];
@@ -39,8 +41,9 @@ void print_all_sectors()
 			if(qind >= 0 && qind < 2*QMAX+1){
 				int dsmax_c = dsmax_curr(q);
 				for(int ds = dsmax_c%2; ds <= dsmax_c; ds +=2){
-					if(QS_matrix()[qind][ds].nr == 0)
+					if(QS_matrix()[qind][ds].nub == 0){
 						continue;
+					}
 					bin_sector sect = QS_matrix()[qind][ds];
 					print_sector(sect, ds);
 				}
@@ -69,7 +72,7 @@ void print_sector_friendly(bin_sector sec)
 	cout << " " << endl;
 	int dSz = sec.dS;
 	cout << "Q = " << sec.Q << ", dS = " << sec.dS << ", dSz = " << dSz << endl;
-	cout << "np = " << sec.np << ", nr = " << sec.nr << ", nb = " << sec.nb << endl;
+	cout << "np = " << sec.np << ", nb = " << sec.nb << ", nub = " << sec.nub << endl;
 
 	
 	if((sec.npv).size() == 4)
@@ -97,7 +100,7 @@ void print_sector_friendly(bin_sector sec)
 		cout << "state " << p << " = ";
 		for(int b = 0; b < sec.np_binconfs[p]; b++){
 			int q_bin;
-			int nsites = iter()+2;
+			int nsites = iter();
 			int *fns_bin = new int[2*nsites];
 			int index_bin = sec.bin_confs[accbin];
 			int *binstate = index_to_binary(index_bin, nsites, fns_bin, q_bin, 0);
@@ -141,11 +144,12 @@ void print_all_sectors_friendly()
  *
  * */
 { 
-	if(iter() == -1){
+	if(iter() == 1){
 		for(unsigned int qind = 0; qind < QS_matrix().size() ; qind++){
 			for(unsigned int ds = 0; ds < QS_matrix()[0].size(); ds++){
-				if(QS_matrix()[qind][ds].nr == 0)
+				if(QS_matrix()[qind][ds].nub == 0){
 					continue;
+				}
 					bin_sector sect = QS_matrix()[qind][ds];
 					print_sector(sect, ds);
 				cout << "******************************************************" << endl;
@@ -159,8 +163,9 @@ void print_all_sectors_friendly()
 			if(qind >= 0 && qind < 2*QMAX+1){
 				int dsmax_c = dsmax_curr(q);
 				for(int ds = dsmax_c%2; ds <= dsmax_c; ds +=2){
-					if(QS_matrix()[qind][ds].nr == 0)
+					if(QS_matrix()[qind][ds].nub == 0){
 						continue;
+					}
 					bin_sector sect = QS_matrix()[qind][ds];
 					print_sector_friendly(sect);
 				}
