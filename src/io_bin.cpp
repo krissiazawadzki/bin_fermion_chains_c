@@ -41,7 +41,7 @@ void print_all_sectors()
 			if(qind >= 0 && qind < 2*QMAX+1){
 				int dsmax_c = dsmax_curr(q);
 				for(int ds = dsmax_c%2; ds <= dsmax_c; ds +=2){
-					if(QS_matrix()[qind][ds].nub == 0){
+					if(QS_matrix()[qind][ds].np == 0){
 						continue;
 					}
 					bin_sector sect = QS_matrix()[qind][ds];
