@@ -146,7 +146,7 @@ double *my_push_back_double(double *oldarray, int oldsize, double element){
 
 void O_NORTH(bin_sector &sectorchild, bin_sector sectorparent){
 	
-	int nsites_curr = iter() + 2;
+	int nsites_curr = iter();
 	
 	int np_parent = sectorparent.np; 
 	int nb_parent = sectorparent.nb;
@@ -307,7 +307,7 @@ vector<int> spin_flip_vector(int binary_index, int nsites)
 
 void O_WEST(bin_sector &sectorchild, bin_sector sectorparent){
 	
-	int nsites_curr = iter() + 2;
+	int nsites_curr = iter();
 	int nsites_prev = nsites_curr-1;
 	int dS = sectorparent.dS;
 	int Q = sectorparent.Q;
@@ -484,7 +484,7 @@ void O_WEST(bin_sector &sectorchild, bin_sector sectorparent){
 
 void O_EAST(bin_sector &sectorchild, bin_sector sectorparent){
 	
-	int nsites_curr = iter() + 2;
+	int nsites_curr = iter();
 	
 	int np_parent = sectorparent.np; 
 	int nb_parent = sectorparent.nb;
