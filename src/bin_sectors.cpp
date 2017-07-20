@@ -8,6 +8,8 @@
 #include <cstdio>
 
 
+// must re-check this
+
 using namespace std;
 
 /* sector matrix (contains all sectors, from current and previous iterations */
