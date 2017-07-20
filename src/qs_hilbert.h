@@ -1,4 +1,4 @@
-#ifndef __NRG__
+#ifndef __QS_HILBERT__
 
 #include <string>
 
@@ -8,7 +8,8 @@
 #define WEST 3
 
 using namespace std;
-int debuga();
+
+
 const int QMAX = 9;
 const int DSMAX = 9;
 
@@ -38,10 +39,8 @@ int dsmax_curr(int q);
 
 void update_q_dS();
 
-void set_Egrd(double Eground);
-double &Eg();
 
 int indhamex(int lin, int col);
 
-#define __NRG__
+#define __QS_HILBERT__
 #endif

@@ -1,15 +1,15 @@
-#include "nrg.h"
-#include "matrix_ops.h"
+#include "qs_hilbert.h"
+
+
 #include <iostream>
 #include <cstdlib>
 #include <cfloat>
 #include <cstring>
 
+/* auxiliary packages */
+#include "matrix_ops/matrix_ops.h"
 
-int debuga()
-{
-  return 0;
-}
+
 /* First iteration */
 int iteration = -1;
 
@@ -341,40 +341,6 @@ void update_q_dS()
 }
 
 
-/* Ground state energy*/
-double Egrd = DBL_MAX;
-
-void set_Egrd(double Eground)
-/*	void set_Egrd(double Eground)
- *
- * 	Function sets the ground state energy with the value Eground.
- *
- * 	Inputs:
- * 		double Eground - value of ground state energy at the current iteration
- *
- * 	Outputs:
- * 		none
- * */
-{
-  
-  Egrd = Eground;
-}
-
-double &Eg()
-/*	double &Eg()
- *
- * 	Function returns the current value of ground state energy.
- *
- * 	Inputs:
- * 		none
- *
- * 	Outputs:
- * 		double Egrd - current ground state energy
- *
- * */
-{
-  return Egrd;
-}
 
 
 
