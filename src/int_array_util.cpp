@@ -64,7 +64,6 @@ int find_unique_intarray(int *intArray, int dimArray, int *&unique_entries)
 				}
 			}
 		}
-	std::cout << "number of unique things found " << dimUnique << std::endl; 
 	// now, only copying unique entries	
 	unique_entries = new int[dimUnique];
 	for(int i = 0; i < dimUnique; i++){
@@ -72,5 +71,44 @@ int find_unique_intarray(int *intArray, int dimArray, int *&unique_entries)
 	}
 		
 	delete[] aux_unique;	
+	
+
 	return dimUnique;
+}
+
+
+void map_unique_indexes(int *intArray, int dimArray, int *uniqueArray, int dimUnique, int *inv_Array_map)
+/* 
+ * 	description:
+ * 
+ * 	function creates a map that assign to each element of the original array an index with the id for the 
+ * 	unique binary configuration
+ * 
+ * 	EX:
+ * 
+ *  original array :	9	7	1	8	3	7	9	0	7	1	
+ * 	unique ordered array:	0	1	3	7	8	9	
+ * 	ids unique ordered array:	0->0	1->1	3->2	7->3	8->4	9->5	
+ * 	map: 5	3	1	4	2	3	5	0	3	1
+ * 
+ * 	inputs:
+ * 		- intArray: integer array
+ * 		- dimArray: numer of elements
+ * 		- unique_entries: array found with routine find_unique_intarray
+ * 		- dimUnique: number of elements in unique array
+ * 		- inv_Array_map: integer array with dimArray elements allocated previously
+ * 
+ *	outputs:
+ * 		- none
+ * 
+ * */
+{
+	
+	for(int i = 0; i < dimArray; i++){
+		for(int ui = 0; ui < dimUnique; ui++){
+			if(intArray[i] == uniqueArray[ui]){
+				inv_Array_map[i] = ui;
+				}
+		}	
+	}
 }
