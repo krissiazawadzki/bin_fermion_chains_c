@@ -22,9 +22,15 @@
 #include "QSmatrix.h"
 #include "first_iter.h"
 #include "prim.h"
+/* custom aux libraries */
+#include "int_array_util.h"
+
 
 /* printing binary configurations info */
 #include "io_bin.h"
+
+
+
 
 int main(int argc, char *argv[]){
 	
