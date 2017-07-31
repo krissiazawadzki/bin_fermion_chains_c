@@ -23,7 +23,8 @@ OBJECTS =	$(DIR_UTIL_ROUTINES)/matrix_ops/matrix_ops.o \
 			$(DIR_SRC_LIBS)/QSmatrix.o	\
 			$(DIR_SRC_LIBS)/first_iter.o \
 			$(DIR_SRC_LIBS)/prim.o \
-			$(DIR_SRC_LIBS)/io_bin.o
+			$(DIR_SRC_LIBS)/io_bin.o \
+			$(DIR_SRC_LIBS)/int_array_util.o
 
 
 DEPDIR = .deps
