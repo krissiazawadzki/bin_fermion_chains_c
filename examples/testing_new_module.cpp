@@ -32,6 +32,7 @@
 
 
 
+
 int main(int argc, char *argv[]){
 	
 	int nsites = 2;
