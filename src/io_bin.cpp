@@ -8,6 +8,11 @@
 #include "spin_configurations.h"
 #include "qs_hilbert.h"
 
+#include "translation_eigenstates_of_S.h"
+
+/* auxiliary packages */
+#include "matrix_ops/matrix_ops.h"
+
 using namespace std;
 
 void print_all_sectors()
@@ -45,7 +50,18 @@ void print_all_sectors()
 						continue;
 					}
 					bin_sector sect = QS_matrix()[qind][ds];
+					
+					
+					// constructing translation matrix
+					
+					int nB = 0, nP = 0;
+					double **Tmat = translation_matrix(sect, nP, nB);
 					print_sector(sect, ds);
+					std::cout << "translation matrix" << std::endl;
+					print_matrix(Tmat, nP, nB);
+					std::cout << "" << std::endl;
+					delete_matrix(Tmat);
+					
 				}
 			cout << "******************************************************" << endl;
 			}
