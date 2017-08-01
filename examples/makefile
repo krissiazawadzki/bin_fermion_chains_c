@@ -17,6 +17,9 @@ MAINSOURCE = testing_new_module
 
 
 OBJECTS =	$(DIR_UTIL_ROUTINES)/matrix_ops/matrix_ops.o \
+			$(DIR_UTIL_ROUTINES)/file_ops/file_ops.o \
+			$(DIR_UTIL_ROUTINES)/file_ops/mkdir.o \
+			$(DIR_UTIL_ROUTINES)/string_ops/string_ops.o \
 			$(DIR_SRC_LIBS)/spin_configurations.o \
 			$(DIR_SRC_LIBS)/qs_hilbert.o	\
 			$(DIR_SRC_LIBS)/bin_sectors.o	\
@@ -33,7 +36,7 @@ df = $(DEPDIR)/$(*F)
 
 
 
-# LSOC
+# test new module
 testing_new_module: $(DEPDIR) $(OBJECTS) testing_new_module.o makefile
 	$(CXX) $(CXXFLAGS) $(OBJECTS) testing_new_module.o -o testing_new_module.x $(LAPACKFLAGS) 
 	
@@ -41,6 +44,13 @@ testing_new_module-debug:  CFLAGS += -g
 testing_new_module-debug:  CXXFLAGS += -g 	
 testing_new_module-debug:  testing_new_module
 
+
+reduced_hilbert_QS: $(DEPDIR) $(OBJECTS) reduced_hilbert_QS.o makefile
+	$(CXX) $(CXXFLAGS) $(OBJECTS) reduced_hilbert_QS.o -o reduced_hilbert_QS.x $(LAPACKFLAGS) 
+	
+reduced_hilbert_QS-debug:  CFLAGS += -g 	
+reduced_hilbert_QS-debug:  CXXFLAGS += -g 	
+reduced_hilbert_QS-debug:  reduced_hilbert_QS
 
 
 clean:
