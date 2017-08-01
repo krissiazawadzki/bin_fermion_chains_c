@@ -149,9 +149,10 @@ void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string
 				}
 			std::cout << std::endl;
 		}
+		delete[] u_bin_confs;
+		delete[] inv_u_bin_confs;
 
-
-
+		std::cout << "\n nP: " << sec.np << "\t nP: " << nBU << std::endl;
 	
 		int nB = 0, nP = 0;
 		double **Tmat = translation_matrix(sec, nP, nB);
@@ -160,14 +161,14 @@ void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string
 		
 		std::cout << std::endl;
 		std::cout << "Rotation (Q,Sz)-> (Q,S)" << std::endl;
+
 		print_matrix(Tmat, nP, nB);
 		std::cout << "" << std::endl;
 		
 		// saving results in 
 		
 		delete_matrix(Tmat);
-		delete[] u_bin_confs;
-		delete[] inv_u_bin_confs;
+		
 	}
 	
 }
