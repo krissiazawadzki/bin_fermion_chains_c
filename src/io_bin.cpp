@@ -10,8 +10,15 @@
 
 #include "translation_eigenstates_of_S.h"
 
+/* custom aux libraries */
+#include "int_array_util.h"
+
 /* auxiliary packages */
 #include "matrix_ops/matrix_ops.h"
+#include "file_ops/file_ops.h"
+#include "file_ops/mkdir.h"
+#include "string_ops/string_ops.h"
+
 
 using namespace std;
 
@@ -69,6 +76,101 @@ void print_all_sectors()
 	}
 }
 
+
+
+
+void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string folder_results, int wfmt, int precisionfmt)
+/*	void print_target_hilbert_space
+ *
+ * 	Function prints specific information of the reduced Hilbert space (Q,S) for a lattice with nsites 
+ * 	Results are stored in folder_results
+ *
+ * 	Inputs:
+ * 		none
+ * 	Outputs:
+ * 		none
+ *
+ * */
+{ 
+	
+	// first, check if the Hilbert space requested exists
+	bool requested_QS_ok = false;
+	
+	int qmax_current = qmax_curr();
+	for(int q = qmax_current; q >= -qmax_current; q--){
+		int qind = q_index(q);	
+		if(qind >= 0 && qind < 2*QMAX+1){
+			int dsmax_c = dsmax_curr(q);
+			for(int ds = dsmax_c%2; ds <= dsmax_c; ds +=2){
+				if(q == Q && ds == dS){
+					requested_QS_ok = true;
+				}		
+			}
+		}
+	}			
+	if(requested_QS_ok){
+		int qind = q_index(Q);	
+		bin_sector sec = QS_matrix()[qind][dS];
+		
+		
+		int nb = sec.nb;
+		int *inv_u_bin_confs = new int[nb];
+		for(int i = 0; i < nb; i++){
+			inv_u_bin_confs[i] = sec.bin_confs[i];
+		}
+		
+		int *u_bin_confs;
+		int nBU = find_unique_intarray(inv_u_bin_confs, nb, u_bin_confs);
+		
+		std::cout << "creating " << folder_results << " ... " << (makePath(folder_results) ? "OK" : "failed") << std::endl;
+  
+		std::string file_bin_confs = folder_results+"/binary_ids_in_Hilbert_nsites="+num2str(iter())+"_Nf="+num2str(Q)+"_dS="+num2str(dS)+".txt";
+		std::string file_rotation = folder_results+"/rotation_matrix_nsites="+num2str(iter())+"_Nf="+num2str(Q)+"_dS="+num2str(dS)+".txt";
+		
+		print_array_to_file_cpp(file_bin_confs, u_bin_confs, nBU, "w", wfmt, precisionfmt);
+		
+		std::cout << "\n binconfs in sector :\t";
+		for(int i = 0; i < nBU; i++){
+			std::cout << u_bin_confs[i] << "\t";
+			}
+		std::cout << std::endl;
+
+		if(print_bin_confs){
+			std::cout << "binary confs inside reduced Hilbert space" << std::endl;
+			for(int i = 0; i < nBU; i++){
+				int q_bin;
+				int nsites = iter();
+				int *fns_bin = new int[2*nsites];
+				int index_bin = u_bin_confs[i];
+				int *binstate = index_to_binary(index_bin, nsites, fns_bin, q_bin, 0);
+				cout << print_conf(binstate, nsites) << endl;
+				delete[] binstate;
+				delete[] fns_bin;	
+				}
+			std::cout << std::endl;
+		}
+
+
+
+	
+		int nB = 0, nP = 0;
+		double **Tmat = translation_matrix(sec, nP, nB);
+		
+		print_matrix_to_file_scientific_cpp(file_rotation, Tmat, nP, nB, "w", 5, 15);
+		
+		std::cout << std::endl;
+		std::cout << "Rotation (Q,Sz)-> (Q,S)" << std::endl;
+		print_matrix(Tmat, nP, nB);
+		std::cout << "" << std::endl;
+		
+		// saving results in 
+		
+		delete_matrix(Tmat);
+		delete[] u_bin_confs;
+		delete[] inv_u_bin_confs;
+	}
+	
+}
 
 
 
