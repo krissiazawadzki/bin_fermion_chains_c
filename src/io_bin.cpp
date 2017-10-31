@@ -79,7 +79,7 @@ void print_all_sectors()
 
 
 
-void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string folder_results, int wfmt, int precisionfmt)
+void print_target_hilbert_space(int nsites, int Q, int dS, bool print_bin_confs, std::string folder_results, int wfmt, int precisionfmt, bool print_matrix_in_terminal)
 /*	void print_target_hilbert_space
  *
  * 	Function prints specific information of the reduced Hilbert space (Q,S) for a lattice with nsites 
@@ -125,7 +125,7 @@ void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string
 		std::cout << "creating " << folder_results << " ... " << (makePath(folder_results) ? "OK" : "failed") << std::endl;
   
 		std::string file_bin_confs = folder_results+"/binary_ids_in_Hilbert_nsites="+num2str(iter())+"_Nf="+num2str(Q)+"_dS="+num2str(dS)+".txt";
-		std::string file_rotation = folder_results+"/rotation_matrix_nsites="+num2str(iter())+"_Nf="+num2str(Q)+"_dS="+num2str(dS)+".txt";
+		std::string file_rotation = folder_results+"/rotation_matrix_nsites="+num2str(iter())+"_Nf="+num2str(nsites+Q)+"_dS="+num2str(dS)+".txt";
 		
 		print_array_to_file_cpp(file_bin_confs, u_bin_confs, nBU, "w", wfmt, precisionfmt);
 		
@@ -162,7 +162,9 @@ void print_target_hilbert_space(int Q, int dS, bool print_bin_confs, std::string
 		std::cout << std::endl;
 		std::cout << "Rotation (Q,Sz)-> (Q,S)" << std::endl;
 
-		print_matrix(Tmat, nP, nB);
+		if(print_matrix_in_terminal){
+			print_matrix(Tmat, nP, nB);
+		}
 		std::cout << "" << std::endl;
 		
 		// saving results in 
