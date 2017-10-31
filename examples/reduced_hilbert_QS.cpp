@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
 		//print_all_sectors();
 		if(n == iter_max()){
 			std::cout << "target Hilbert space info (Q,S) = (" << Q << ", " << dS << ")" << std::endl;
-			print_target_hilbert_space(Q,dS, false, folder_results);
+			print_target_hilbert_space(nsites, Q,dS, false, folder_results);
 		}
 		
 		
