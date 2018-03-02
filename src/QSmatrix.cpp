@@ -84,15 +84,19 @@ void print_QSmatrix(const vector< vector<bin_sector> > &qs_matrix)
  * 
  *  */
 {	
+	
+
   for(unsigned int i = 0; i < qs_matrix.size() ; i++){
     for(unsigned int j = 0; j < qs_matrix[0].size(); j++){
       if (QSmatrix[i][j].np != 0)
-	cout << setw(4) << qs_matrix[i][j].np;
+	cout << setw(12) << qs_matrix[i][j].np;
       else 
-	cout << setw(4) << "";
+	cout << setw(12) << 0.0;
     }
-    cout << "\n";     
+    cout << "\n";      
   }
+	
+	  
 }
 
 void clear_QSmatrix(vector< vector<bin_sector> > &qs_matrix)

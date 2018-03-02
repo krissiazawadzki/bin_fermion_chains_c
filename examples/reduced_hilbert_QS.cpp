@@ -38,7 +38,8 @@ int main(int argc, char *argv[]){
 	int nsites = 2;
 	int Q = nsites;
 	int dS = nsites%2;
-	std::string folder_results = "/home/krissia/Desktop/cond_matter_module/bin_spin_chains/rotation_matrices_QS_cpp";
+	std::string folder_results = "/home/krissia/Desktop/QuFermi_Operators_np";
+	int save = 0;
 	
 	if(argc == 2){
 		nsites = atoi(argv[1]);
@@ -60,9 +61,17 @@ int main(int argc, char *argv[]){
 		nsites = atoi(argv[1]);
 		Q = atoi(argv[2]);
 		dS = atoi(argv[3]);
-		folder_results = argv[4];
+		save = atoi(argv[4]);
 	}
-		
+
+	if(argc == 6){
+		nsites = atoi(argv[1]);
+		Q = atoi(argv[2]);
+		dS = atoi(argv[3]);
+		save = atoi(argv[4]);
+		folder_results = argv[5];
+	}
+			
 	std::cout << "\n\ttotal number of sites: " << nsites << std::endl;
 	std::cout << "\n\ttarget (Q,S) : (" << Q << ", " << dS << ")" << std::endl;
 	
@@ -90,11 +99,15 @@ int main(int argc, char *argv[]){
 		cout << " * * * * * " << endl;
 		
 		//print_all_sectors_friendly();
+		print_QSmatrix(QS_matrix());
 		
 		//print_all_sectors();
 		if(n == iter_max()){
 			std::cout << "target Hilbert space info (Q,S) = (" << Q << ", " << dS << ")" << std::endl;
-			print_target_hilbert_space(nsites, Q,dS, false, folder_results);
+			
+			if(save){
+				print_target_hilbert_space(nsites, Q,dS, false, folder_results);
+			}
 		}
 		
 		
