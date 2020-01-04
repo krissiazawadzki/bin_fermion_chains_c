@@ -1,9 +1,11 @@
 CCOMPILER = gcc
 CXXCOMPILER = g++
 
-DIR_UTIL_ROUTINES = ../../../Bitbucket-desktop/dft-nrg/src/util_etc/
+DIR_UTIL_ROUTINES = ../src/util_etc
 DIR_SRC_LIBS = ../src
 
+
+# check where are the lapack and lapacke 
 INC_BLAS = "/usr/local/opt/openblas/include/"
 LAPACKFLAGS += -llapack -lblas -llapacke
 
