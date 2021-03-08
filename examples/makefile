@@ -1,15 +1,16 @@
 CCOMPILER = gcc
 CXXCOMPILER = g++
 
-DIR_UTIL_ROUTINES = ../../dft-nrg/src/util_etc/
+DIR_UTIL_ROUTINES = ../../cpp_util_modules/util_etc/
 DIR_SRC_LIBS = ../src
 
 INC_BLAS = "/usr/local/opt/openblas/include/"
-LAPACKFLAGS += -llapack -lblas -llapacke
+LAPACKFLAGS += -DWITH_LAPACK -llapack -lblas -lm -lc  -lstdc++  -framework Accelerate
 
+LDFLAGS = -L/usr/lib64 -L/usr/lib/ -L/home/krissia/lib/ -lblas -llapack -lm -lc  -lstdc++  -framework Accelerate
 
-CFLAGS += -Wall -O2   -I$(INC_BLAS) -I$(DIR_UTIL_ROUTINES) -I$(DIR_SRC_LIBS)
-CXXFLAGS += -Wall -O2   -I$(INC_BLAS) -I$(DIR_UTIL_ROUTINES) -I$(DIR_SRC_LIBS) -std=c++11
+CFLAGS += -Wall -O2   -I$(INC_BLAS) -I$(DIR_UTIL_ROUTINES) -I$(DIR_SRC_LIBS) #-std=c++11
+CXXFLAGS += -Wall -O2   -I$(INC_BLAS) -I$(DIR_UTIL_ROUTINES) -I$(DIR_SRC_LIBS) #-std=c++11
 
 
 
@@ -46,7 +47,7 @@ testing_new_module-debug:  testing_new_module
 
 
 reduced_hilbert_QS: $(DEPDIR) $(OBJECTS) reduced_hilbert_QS.o makefile
-	$(CXX) $(CXXFLAGS) $(OBJECTS) reduced_hilbert_QS.o -o reduced_hilbert_QS.x $(LAPACKFLAGS) 
+	$(CXX) $(CXXFLAGS) $(OBJECTS) reduced_hilbert_QS.o -o reduced_hilbert_QS.x $(LAPACKFLAGS) $(LDFLAGS)
 	
 reduced_hilbert_QS-debug:  CFLAGS += -g 	
 reduced_hilbert_QS-debug:  CXXFLAGS += -g 	
