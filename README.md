@@ -1,4 +1,4 @@
-# bin_spin_chains_c
+# bin_fermion_chains_c
 Package provides modules to exactly diagonalize small finite fermionic chains in the reduced Hilbert space (Q,S,Sz=S). 
 
 - examples
