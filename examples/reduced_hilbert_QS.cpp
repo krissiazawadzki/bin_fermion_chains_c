@@ -106,6 +106,7 @@ int main(int argc, char *argv[]){
 			std::cout << "target Hilbert space info (Q,S) = (" << Q << ", " << dS << ")" << std::endl;
 			
 			if(save){
+                std::cout << "saving" << std::endl;
 				print_target_hilbert_space(nsites, Q,dS, false, folder_results);
 			}
 		}
